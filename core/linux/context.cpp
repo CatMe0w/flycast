@@ -128,6 +128,8 @@ static void context_segfault(host_context_t* hostctx, void* segfault_ctx)
 	#endif
 #elif HOST_CPU == CPU_MIPS
 	bicopy<ToSegfault>(hostctx->pc, MCTX(.pc));
+#elif HOST_CPU == CPU_RISCV32 || HOST_CPU == CPU_RISCV64
+	bicopy<ToSegfault>(hostctx->pc, MCTX(.mcause));
 #elif HOST_CPU == CPU_GENERIC
     //nothing!
 #else

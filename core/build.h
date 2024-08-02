@@ -21,6 +21,8 @@
 #define CPU_PPC      0x20000006
 #define CPU_PPC64    0x20000007
 #define CPU_ARM64    0x20000008
+#define CPU_RISCV32  0x20000009
+#define CPU_RISCV64  0x2000000A
 
 //FEAT_SHREC, FEAT_AREC, FEAT_DSPREC
 #define DYNAREC_NONE	0x40000001
@@ -38,6 +40,10 @@
 	#define HOST_CPU CPU_ARM64
 #elif defined(__mips__)
 	#define HOST_CPU CPU_MIPS
+#elif __riscv_xlen == 32
+	#define HOST_CPU CPU_RISCV32
+#elif __riscv_xlen == 64
+	#define HOST_CPU CPU_RISCV64
 #else
 	#define HOST_CPU CPU_GENERIC
 #endif

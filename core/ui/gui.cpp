@@ -2797,6 +2797,10 @@ static void gui_settings_about()
 			"Generic"
 #elif HOST_CPU == CPU_ARM64
 			"ARM64"
+#elif HOST_CPU == CPU_RISCV32
+			"RISCV32"
+#elif HOST_CPU == CPU_RISCV64
+			"RISCV64"
 #else
 			"Unknown"
 #endif

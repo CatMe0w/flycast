@@ -126,6 +126,16 @@ static void setHostRoundingMode()
                 : "r"(off_mask), "r"(on_mask)
 				: "x10"
             );
+	#elif HOST_CPU == CPU_RISCV32 || HOST_CPU == CPU_RISCV64
+	    u32 temp = 0x0;	// no flush to zero && round to nearest
+
+		if (fpscr.RM == 1)
+			temp |= (1 << 5); // set FRM to round towards zero
+
+		if (fpscr.DN)
+			temp |= (1 << 6); // Set FZ to flush denormals to zero
+
+		asm volatile("csrw fcsr, %0" : : "r"(temp));
     #else
 	#error "SetFloatStatusReg: Unsupported platform"
     #endif
