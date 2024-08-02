@@ -22,5 +22,13 @@ struct host_context_t {
 	u32 reg[15];
 #elif HOST_CPU == CPU_ARM64
 	u64 x0;
+#elif HOST_CPU == CPU_RISCV32
+	u32 sp;
+	u32 pc;
+	u32 reg[32];
+#elif HOST_CPU == CPU_RISCV64
+	u64 sp;
+	u64 pc;
+	u64 reg[32];
 #endif
 };
