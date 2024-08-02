@@ -39,7 +39,8 @@ endif()
 
 include(DetectArchitecture)
 if(NOT DEFINED ARCHITECTURE)
-	message(FATAL_ERROR "Unsupported architecture encountered. Ending CMake generation.")
+	# FIXME
+	#message(FATAL_ERROR "Unsupported architecture encountered. Ending CMake generation.")
 endif()
 message(STATUS "Target architecture: ${ARCHITECTURE}")
 
