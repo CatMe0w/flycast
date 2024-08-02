@@ -37,3 +37,8 @@ detect_architecture("_M_X64" x86_64)
 detect_architecture("__i386" x86)
 detect_architecture("__i386__" x86)
 detect_architecture("_M_IX86" x86)
+
+detect_architecture("__riscv32" riscv32)
+detect_architecture("__riscv32__" riscv32)
+detect_architecture("__riscv64" riscv64)
+detect_architecture("__riscv64__" riscv64)
