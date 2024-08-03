@@ -743,8 +743,10 @@ private:
 			addr += disp;
 			if (updateCycles)
 			{
+				#if FEAT_SHREC != DYNAREC_NONE
 				dec_updateBlockCycles(block, op);
 				dec_updateBlockCycles(block, delayOp);
+				#endif
 			}
 			success = true;
 		}

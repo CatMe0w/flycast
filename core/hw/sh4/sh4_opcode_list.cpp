@@ -6,6 +6,8 @@
 #include "hw/sh4/dyna/shil.h"
 #include "reios/reios.h"
 
+#if FEAT_SHREC != DYNAREC_NONE
+
 OpCallFP* OpPtr[0x10000];
 sh4_opcodelistentry* OpDesc[0x10000];
 
@@ -605,3 +607,4 @@ std::string disassemble_op(const char* tx1, u32 pc, u16 opcode)
 	return text + " ; " + regs;
 }
 
+#endif  // FEAT_SHREC != DYNAREC_NONE

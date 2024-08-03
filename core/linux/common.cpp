@@ -47,15 +47,19 @@ void fault_handler(int sn, siginfo_t * si, void *segfault_ctx)
 	// Ram watcher for net rollback
 	if (memwatch::writeAccess(si->si_addr))
 		return;
+	#if FEAT_SHREC != DYNAREC_NONE
 	// code protection in RAM
 	if (bm_RamWriteAccess(si->si_addr))
+	#endif
 		return;
 	// texture protection in VRAM
 	if (VramLockedWrite((u8*)si->si_addr))
 		return;
 	// FPCB jump table protection
+	#if FEAT_SHREC != DYNAREC_NONE
 	if (addrspace::bm_lockedWrite((u8*)si->si_addr))
 		return;
+	#endif
 
 #if FEAT_SHREC == DYNAREC_JIT
 	// fast mem access rewriting

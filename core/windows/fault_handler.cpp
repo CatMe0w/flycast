@@ -123,14 +123,18 @@ static LONG WINAPI exceptionHandler(EXCEPTION_POINTERS *ep)
 	if (memwatch::writeAccess(address))
 		return EXCEPTION_CONTINUE_EXECUTION;
 	// code protection in RAM
+	#if FEAT_SHREC != DYNAREC_NONE
 	if (bm_RamWriteAccess(address))
 		return EXCEPTION_CONTINUE_EXECUTION;
+	#endif
 	// texture protection in VRAM
 	if (VramLockedWrite(address))
 		return EXCEPTION_CONTINUE_EXECUTION;
 	// FPCB jump table protection
+	#if FEAT_SHREC != DYNAREC_NONE
 	if (addrspace::bm_lockedWrite(address))
 		return EXCEPTION_CONTINUE_EXECUTION;
+	#endif
 
 	host_context_t context;
 	readContext(ep, context);

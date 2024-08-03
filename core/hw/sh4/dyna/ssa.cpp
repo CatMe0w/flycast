@@ -24,6 +24,11 @@
 #define SHIL_MODE 2
 #include "shil_canonical.h"
 
+#if FEAT_SHREC != DYNAREC_NONE
+#define SHIL_MODE 3
+#include "shil_canonical.h"
+#endif
+
 void SSAOptimizer::InsertMov32Op(const shil_param& rd, const shil_param& rs)
 {
 	shil_opcode op2(block->oplist[opnum]);

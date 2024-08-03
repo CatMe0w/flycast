@@ -128,17 +128,23 @@ class RamWatcher : public Watcher<RamWatcher>
 protected:
 	void protectMem(u32 addr, u32 size)
 	{
+		#if FEAT_SHREC != DYNAREC_NONE
 		bm_LockPage(addr, std::min(RAM_SIZE - addr, size) & ~PAGE_MASK);
+		#endif
 	}
 
 	void unprotectMem(u32 addr, u32 size)
 	{
+		#if FEAT_SHREC != DYNAREC_NONE
 		bm_UnlockPage(addr, std::min(RAM_SIZE - addr, size) & ~PAGE_MASK);
+		#endif
 	}
 
 	u32 getMemOffset(void *p)
 	{
+		#if FEAT_SHREC != DYNAREC_NONE
 		return bm_getRamOffset(p);
+		#endif
 	}
 
 public:
@@ -191,7 +197,9 @@ inline static bool writeAccess(void *p)
 		return false;
 	if (ramWatcher.hit(p))
 	{
+		#if FEAT_SHREC != DYNAREC_NONE
 		bm_RamWriteAccess(p);
+		#endif
 		return true;
 	}
 	if (vramWatcher.hit(p))
