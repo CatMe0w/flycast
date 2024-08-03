@@ -232,6 +232,7 @@ private:
 						void *ptr;
 						bool isRam;
 						u32 paddr;
+						#if FEAT_SHREC != DYNAREC_NONE
 						if (rdv_readMemImmediate(op.rs1._imm, op.size, ptr, isRam, paddr, block) && isRam)
 						{
 							u32 v;
@@ -254,6 +255,7 @@ private:
 							ReplaceByMov32(op, v);
 							constprop_values[RegValue(op.rd)] = v;
 						}
+						#endif
 					}
 				}
 				else

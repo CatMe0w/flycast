@@ -21,13 +21,10 @@
 #include "blockmanager.h"
 #include "ssa.h"
 
+#if FEAT_SHREC != DYNAREC_NONE
+
 #define SHIL_MODE 2
 #include "shil_canonical.h"
-
-#if FEAT_SHREC != DYNAREC_NONE
-#define SHIL_MODE 3
-#include "shil_canonical.h"
-#endif
 
 void SSAOptimizer::InsertMov32Op(const shil_param& rd, const shil_param& rs)
 {
@@ -374,3 +371,5 @@ bool SSAOptimizer::ExecuteConstOp(shil_opcode* op)
 		return false;
 	}
 }
+
+#endif  // FEAT_SHREC != DYNAREC_NONE

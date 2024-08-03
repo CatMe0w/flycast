@@ -6,8 +6,6 @@
 #include "hw/sh4/dyna/shil.h"
 #include "reios/reios.h"
 
-#if FEAT_SHREC != DYNAREC_NONE
-
 OpCallFP* OpPtr[0x10000];
 sh4_opcodelistentry* OpDesc[0x10000];
 
@@ -82,7 +80,11 @@ static u64 dec_MRd(DecParam d,DecParam s,u32 sz) { return dec_Fill(DM_ReadM,d,s,
 //d= reg to read from
 static u64 dec_MWt(DecParam d,DecParam s,u32 sz) { return dec_Fill(DM_WriteM,d,s,shop_writem,sz); }
 
+#if FEAT_SHREC != DYNAREC_NONE
 static sh4_opcodelistentry missing_opcode = {dec_illegalOp, iNotImplemented, 0, 0, ReadWritePC, "missing", 0, 0, CO, 1 };
+#else
+static sh4_opcodelistentry missing_opcode = {0, iNotImplemented, 0, 0, ReadWritePC, "missing", 0, 0, CO, 1 };
+#endif
 
 static sh4_opcodelistentry opcodes[]=
 {
@@ -607,4 +609,3 @@ std::string disassemble_op(const char* tx1, u32 pc, u16 opcode)
 	return text + " ; " + regs;
 }
 
-#endif  // FEAT_SHREC != DYNAREC_NONE
