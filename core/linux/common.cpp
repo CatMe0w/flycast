@@ -50,8 +50,8 @@ void fault_handler(int sn, siginfo_t * si, void *segfault_ctx)
 	#if FEAT_SHREC != DYNAREC_NONE
 	// code protection in RAM
 	if (bm_RamWriteAccess(si->si_addr))
-	#endif
 		return;
+	#endif
 	// texture protection in VRAM
 	if (VramLockedWrite((u8*)si->si_addr))
 		return;
